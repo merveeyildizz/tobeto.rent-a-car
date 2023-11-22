@@ -1,12 +1,21 @@
 package com.example.tobetorentacar.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "payments")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment {
 
     @Id
@@ -22,5 +31,6 @@ public class Payment {
 
 
     @OneToMany(mappedBy = "payment")
+    @JsonIgnore
     private List<Rental> rentals;
 }
