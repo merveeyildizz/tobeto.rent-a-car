@@ -1,13 +1,14 @@
 package com.example.tobetorentacar.controllers;
 
 
-import com.example.tobetorentacar.dtos.requests.payment.AddPaymentRequest;
-import com.example.tobetorentacar.dtos.requests.payment.UpdatePaymentRequest;
-import com.example.tobetorentacar.dtos.responses.payment.GetPaymentListResponse;
-import com.example.tobetorentacar.dtos.responses.payment.GetPaymentResponse;
-import com.example.tobetorentacar.entities.Brand;
+import com.example.tobetorentacar.services.abstracts.PaymentService;
+import com.example.tobetorentacar.services.dtos.requests.payment.AddPaymentRequest;
+import com.example.tobetorentacar.services.dtos.requests.payment.UpdatePaymentRequest;
+import com.example.tobetorentacar.services.dtos.responses.payment.GetPaymentListResponse;
+import com.example.tobetorentacar.services.dtos.responses.payment.GetPaymentResponse;
 import com.example.tobetorentacar.entities.Payment;
 import com.example.tobetorentacar.repositories.PaymentRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,53 +16,36 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/payments")
+@AllArgsConstructor
 public class PaymentsController {
-    private final PaymentRepository paymentRepository;
-    public PaymentsController(PaymentRepository paymentRepository){
-        this.paymentRepository=paymentRepository;
-    }
+    private final PaymentService paymentService;
+
 
     @GetMapping
     public List<GetPaymentListResponse> getAll(){
-        List<Payment> paymentList=paymentRepository.findAll();
-        List<GetPaymentListResponse> paymentRespondList= new ArrayList<>();
-        for(Payment payment: paymentList){
-            GetPaymentListResponse dto= new GetPaymentListResponse();
-            dto.setAmount(payment.getAmount());
-            dto.setPaymentType(payment.getPaymentType());
-            paymentRespondList.add(dto);
-        }
-        return paymentRespondList;
+        return this.paymentService.getAll();
+
     }
     @GetMapping("{id}")
     public GetPaymentResponse getById(@PathVariable int id){
-        Payment payment= paymentRepository.findById(id).orElseThrow();
-        GetPaymentResponse dto= new GetPaymentResponse();
-        dto.setAmount(payment.getAmount());
-        dto.setPaymentType(payment.getPaymentType());
-        return dto;
+        return this.paymentService.getById(id);
     }
 
     @PostMapping
     public void add(@RequestBody AddPaymentRequest request){
-        Payment payment=new Payment();
-        payment.setAmount(request.getAmount());
-        payment.setPaymentType(request.getPaymentType());
-        paymentRepository.save(payment);
+        this.paymentService.add(request);
+
     }
 
     @PutMapping("{id}")
     public void update(@RequestBody UpdatePaymentRequest updatePaymentRequest, @PathVariable int id){
-        Payment updatePayment=paymentRepository.findById(id).orElseThrow();
+        this.paymentService.update(updatePaymentRequest,id);
 
-
-        updatePayment.setPaymentType(updatePaymentRequest.getPaymentType());
-        updatePayment.setAmount(updatePaymentRequest.getAmount());
-        paymentRepository.save(updatePayment);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
-        paymentRepository.deleteById(id);
+        this.paymentService.delete(id);
+
     }
 }
