@@ -48,4 +48,24 @@ public class UsersController {
         this.userService.update(id,updateUserRequest);
     }
 
+    @GetMapping("findByName")
+    public List<GetUserListResponse> findByName(@RequestParam String name){
+        return this.userService.findByName(name);
+    }
+
+    @GetMapping("findByEmail")
+    public List<GetUserListResponse> findByEmail(@RequestParam String email){
+        return this.userService.findByEmail(email);
+    }
+
+    @GetMapping("getAll2")
+    public List<GetUserListResponse> getAll2(){
+        return this.userService.getAll2();
+    }
+
+    @GetMapping("findByEmailAddress")
+    public List<GetUserListResponse> findByEmailAddress(String email){
+        return this.userService.findByEmailAddress(email);
+    }
+
 }

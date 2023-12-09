@@ -65,4 +65,40 @@ public class PaymentManager implements PaymentService {
         paymentRepository.deleteById(id);
 
     }
+
+    @Override
+    public List<GetPaymentListResponse> findByAmountLessThanEqual(int amount) {
+        List<Payment> payments=paymentRepository.findByAmountLessThanEqual(amount);
+        List<GetPaymentListResponse> response= new ArrayList<>();
+        for(Payment payment:payments){
+            GetPaymentListResponse dto= new GetPaymentListResponse();
+            dto.setAmount(payment.getAmount());
+            dto.setPaymentType(payment.getPaymentType());
+            response.add(dto);
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetPaymentListResponse> findByAmountGreaterThanEqual(int amount) {
+        List<Payment> payments=paymentRepository.findByAmountGreaterThanEqual(amount);
+        List<GetPaymentListResponse> response=new ArrayList<>();
+        for(Payment payment:payments){
+            GetPaymentListResponse dto=new GetPaymentListResponse();
+            dto.setPaymentType(payment.getPaymentType());
+            dto.setAmount(payment.getAmount());
+            response.add(dto);
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetPaymentListResponse> searchPaymentType(String paymentType) {
+        return this.paymentRepository.searchPaymentType(paymentType);
+    }
+
+    @Override
+    public List<GetPaymentListResponse> getAll2() {
+        return this.paymentRepository.getAll2();
+    }
 }

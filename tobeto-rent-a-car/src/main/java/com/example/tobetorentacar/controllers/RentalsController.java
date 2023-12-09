@@ -10,6 +10,7 @@ import com.example.tobetorentacar.repositories.RentalRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,4 +53,30 @@ public class RentalsController {
         this.rentalService.update(id,updateRentalRequest);
 
     }
+
+    @GetMapping("destination")
+    public List<GetRentalListResponse> findByDestination(@RequestParam String destination){
+        return this.rentalService.findByDestination(destination);
+    }
+
+    @GetMapping("findByRentalDateAfter")
+    public List<GetRentalListResponse> findByRentalDateAfter(Date rentalDate){
+        return this.rentalService.findByRentalDateAfter(rentalDate);
+    }
+
+    @GetMapping("getAll2")
+    public List<GetRentalListResponse> getAll2(){
+        return this.rentalService.getAll2();
+    }
+
+
+    @GetMapping("orderByReturnDate")
+    public List<GetRentalListResponse> orderByReturnDate(){
+        return this.rentalService.orderByReturnDate();
+    }
+
+
+
 }
+
+

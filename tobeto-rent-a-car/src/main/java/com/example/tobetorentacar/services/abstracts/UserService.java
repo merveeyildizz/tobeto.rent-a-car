@@ -13,4 +13,9 @@ public interface UserService {
     void add(AddUserRequest request);
     void delete(int id);
     void update(int id, UpdateUserRequest updateUserRequest);
+
+    List<GetUserListResponse> findByName(String name);
+    List<GetUserListResponse> findByEmail(String email);
+    List<GetUserListResponse> getAll2();
+    List<GetUserListResponse> findByEmailAddress(String email);
 }

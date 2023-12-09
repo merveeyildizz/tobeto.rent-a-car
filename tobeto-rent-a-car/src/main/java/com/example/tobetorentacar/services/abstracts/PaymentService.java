@@ -15,5 +15,9 @@ public interface PaymentService {
     void add(AddPaymentRequest request);
     void update(UpdatePaymentRequest updatePaymentRequest, int id);
     void delete(int id);
+    List<GetPaymentListResponse> findByAmountLessThanEqual(int amount);
+    List<GetPaymentListResponse> findByAmountGreaterThanEqual(int amount);
+    List<GetPaymentListResponse> searchPaymentType(String paymentType);
+    List<GetPaymentListResponse> getAll2();
 
 }

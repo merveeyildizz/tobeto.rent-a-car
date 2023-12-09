@@ -1,10 +1,12 @@
 package com.example.tobetorentacar.services.concretes;
 
+import com.example.tobetorentacar.entities.Brand;
 import com.example.tobetorentacar.entities.Car;
 import com.example.tobetorentacar.repositories.CarRepository;
 import com.example.tobetorentacar.services.abstracts.CarService;
 import com.example.tobetorentacar.services.dtos.requests.car.AddCarRequest;
 import com.example.tobetorentacar.services.dtos.requests.car.UpdateCarRequest;
+import com.example.tobetorentacar.services.dtos.responses.brand.GetBrandListResponse;
 import com.example.tobetorentacar.services.dtos.responses.car.GetCarListResponse;
 import com.example.tobetorentacar.services.dtos.responses.car.GetCarResponse;
 import lombok.AllArgsConstructor;
@@ -68,4 +70,47 @@ public class CarManager implements CarService {
         carRepository.deleteById(id);
 
     }
+
+    @Override
+    public List<GetCarListResponse> getByColor(String color) {
+        List<Car> cars=carRepository.findByColor(color);
+        List<GetCarListResponse> response=new ArrayList<>();
+        for(Car car:cars){
+            GetCarListResponse dto=new GetCarListResponse();
+            dto.setColor(car.getColor());
+            dto.setRentPrice(car.getRentPrice());
+            dto.setModelYear(car.getModelYear());
+            response.add(dto);
+
+
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetCarListResponse> getByRentPriceLessThan(Double rentPrice) {
+        List<Car> cars= carRepository.findByRentPriceLessThan(rentPrice);
+        List<GetCarListResponse> response= new ArrayList<>();
+        for(Car car:cars){
+            GetCarListResponse dto=new GetCarListResponse();
+            dto.setRentPrice(car.getRentPrice());
+            dto.setModelYear(car.getModelYear());
+            dto.setColor(car.getColor());
+            response.add(dto);
+
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetCarListResponse> getAll2() {
+        return carRepository.getAll2();
+    }
+
+    @Override
+    public List<GetCarListResponse> orderByModelYear() {
+        return carRepository.orderByModelYear();
+    }
+
+
 }

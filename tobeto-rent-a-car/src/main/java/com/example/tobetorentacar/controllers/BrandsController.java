@@ -45,5 +45,27 @@ public class BrandsController {
         this.brandService.update(updateBrandRequest,id);
     }
 
+    @GetMapping("nameOrId")
+    public List<GetBrandListResponse> getByNameOrId(@RequestParam String name, @RequestParam int id){
+        return this.brandService.getByNameOrId(name,id);
+
+    }
+
+    @GetMapping("nameStartWith")
+    public List<GetBrandListResponse> getByNameStartingWith(@RequestParam String name){
+        return this.brandService.getByNameStartingWith(name);
+    }
+
+    @GetMapping("search")
+    public List<GetBrandListResponse> search(@RequestParam String name){
+        return this.brandService.search(name);
+    }
+
+    @GetMapping("order")
+    public List<GetBrandListResponse> order(){
+        return this.brandService.order();
+    }
+
+
 
 }

@@ -10,6 +10,7 @@ import com.example.tobetorentacar.services.dtos.responses.rental.GetRentalRespon
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,5 +75,45 @@ public class RentalManager implements RentalService {
     public void delete(int id) {
         rentalRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<GetRentalListResponse> findByDestination(String destination) {
+        List<Rental> rentals=rentalRepository.findByDestination(destination);
+        List<GetRentalListResponse> response=new ArrayList<>();
+        for(Rental rental:rentals){
+            GetRentalListResponse dto=new GetRentalListResponse();
+            dto.setDestination(rental.getDestination());
+            dto.setRentalDate(rental.getRentalDate());
+            dto.setRentalNumber(rental.getRentalNumber());
+            dto.setReturnDate(rental.getReturnDate());
+            response.add(dto);
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetRentalListResponse> findByRentalDateAfter(Date rentalDate) {
+        List<Rental> rentals=rentalRepository.findByRentalDateAfter(rentalDate);
+        List<GetRentalListResponse> response=new ArrayList<>();
+        for(Rental rental:rentals){
+            GetRentalListResponse dto=new GetRentalListResponse();
+            dto.setReturnDate(rental.getReturnDate());
+            dto.setRentalDate(rental.getRentalDate());
+            dto.setRentalNumber(rental.getRentalNumber());
+            dto.setDestination(rental.getDestination());
+            response.add(dto);
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetRentalListResponse> getAll2() {
+        return rentalRepository.getAll2();
+    }
+
+    @Override
+    public List<GetRentalListResponse> orderByReturnDate() {
+        return rentalRepository.orderByReturnDate();
     }
 }

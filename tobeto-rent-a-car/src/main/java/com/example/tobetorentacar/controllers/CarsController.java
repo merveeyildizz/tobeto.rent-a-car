@@ -46,4 +46,34 @@ public class CarsController {
 
     }
 
+    @GetMapping("getByColor")
+    public List<GetCarListResponse> getByColor(@RequestParam String color){
+
+        return this.carService.getByColor(color);
+    }
+
+    @GetMapping("rentPrice")
+    public List<GetCarListResponse> getByRentPriceLessThan(@RequestParam double rentPrice){
+        return this.carService.getByRentPriceLessThan(rentPrice);
+
+    }
+    @GetMapping("getAll2")
+    public List<GetCarListResponse> getAll2(){
+        return this.carService.getAll2();
+    }
+
+    @GetMapping("orderByModelYear")
+    public List<GetCarListResponse> orderByModelYear(){
+        return this.carService.orderByModelYear();
+    }
+
+
+
+
+
+
+
+
+
+
 }

@@ -13,6 +13,13 @@ public interface BrandService {
     void add(AddBrandRequest request);
     void delete(int id);
     void update(UpdateBrandRequest updateBrandRequest,int id);
+    List<GetBrandListResponse> getByNameOrId(String name,int id);
+    List<GetBrandListResponse> getByNameStartingWith(String name);
+    List<GetBrandListResponse> search(String name);
+    List<GetBrandListResponse> order();
+
+
+
 
 
 

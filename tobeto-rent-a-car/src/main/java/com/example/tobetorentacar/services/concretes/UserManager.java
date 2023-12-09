@@ -77,4 +77,46 @@ public class UserManager implements UserService {
         userRepository.save(updateUser);
 
     }
+
+    @Override
+    public List<GetUserListResponse> findByName(String name) {
+        List<User> users=userRepository.findByName(name);
+        List<GetUserListResponse> response=new ArrayList<>();
+        for (User user:users){
+            GetUserListResponse dto=new GetUserListResponse();
+            dto.setName(user.getName());
+            dto.setSurname(user.getSurname());
+            dto.setAddress(user.getAddress());
+            dto.setEmail(user.getEmail());
+            dto.setPhoneNumber(user.getPhoneNumber());
+            response.add(dto);
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetUserListResponse> findByEmail(String email) {
+        List<User> users=userRepository.findByEmail(email);
+        List<GetUserListResponse> response=new ArrayList<>();
+        for(User user:users){
+            GetUserListResponse dto=new GetUserListResponse();
+            dto.setName(user.getName());
+            dto.setSurname(user.getSurname());
+            dto.setEmail(user.getEmail());
+            dto.setAddress(user.getAddress());
+            dto.setAddress(user.getAddress());
+            response.add(dto);
+        }
+        return response;
+    }
+
+    @Override
+    public List<GetUserListResponse> getAll2() {
+        return userRepository.getAll2();
+    }
+
+    @Override
+    public List<GetUserListResponse> findByEmailAddress(String email) {
+        return userRepository.findByEmailAddress(email);
+    }
 }

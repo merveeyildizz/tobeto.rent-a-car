@@ -48,4 +48,24 @@ public class PaymentsController {
         this.paymentService.delete(id);
 
     }
+
+    @GetMapping("findByAmountLessThanEqual")
+    public List<GetPaymentListResponse> findByAmountLessThanEqual(@RequestParam int amount){
+      return this.paymentService.findByAmountLessThanEqual(amount);
+    }
+
+    @GetMapping("findByAmountGreaterThanEqual")
+    public List<GetPaymentListResponse> findByAmountGreaterThanEqual(@RequestParam int amount){
+        return this.paymentService.findByAmountGreaterThanEqual(amount);
+    }
+
+    @GetMapping("searchPaymentType")
+    public List<GetPaymentListResponse> searchPaymentType(@RequestParam String paymentType){
+        return this.paymentService.searchPaymentType(paymentType);
+    }
+
+    @GetMapping("getAll2")
+    public List<GetPaymentListResponse> getAll2(){
+        return this.paymentService.getAll2();
+    }
 }

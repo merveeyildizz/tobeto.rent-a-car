@@ -7,6 +7,7 @@ import com.example.tobetorentacar.services.dtos.responses.rental.GetRentalRespon
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface RentalService {
@@ -15,4 +16,8 @@ public interface RentalService {
     void add(AddRentalRequest request);
     void update(int id,UpdateRentalRequest updateRentalRequest);
     void delete(int id);
+    List<GetRentalListResponse> findByDestination(String destination);
+    List<GetRentalListResponse> findByRentalDateAfter(Date rentalDate);
+    List<GetRentalListResponse> getAll2();
+    List<GetRentalListResponse> orderByReturnDate();
 }
